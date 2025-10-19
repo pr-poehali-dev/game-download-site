@@ -4,7 +4,12 @@ import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { Card, CardContent } from '@/components/ui/card';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
+import { Label } from '@/components/ui/label';
 import Icon from '@/components/ui/icon';
+import { useToast } from '@/hooks/use-toast';
 
 interface Game {
   id: number;
@@ -83,18 +88,79 @@ const games: Game[] = [
 
 const categories = ["Все", "Экшен", "Гонки", "Головоломки", "Стратегия", "Аркада", "RPG"];
 
+interface User {
+  username: string;
+  email: string;
+  avatar?: string;
+}
+
 export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [activeTab, setActiveTab] = useState("home");
   const [favorites, setFavorites] = useState<number[]>([]);
+  const [user, setUser] = useState<User | null>(null);
+  const [isAuthOpen, setIsAuthOpen] = useState(false);
+  const [authMode, setAuthMode] = useState<'login' | 'register'>('login');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [username, setUsername] = useState('');
+  const { toast } = useToast();
 
   const toggleFavorite = (gameId: number) => {
+    if (!user) {
+      toast({
+        title: "Требуется авторизация",
+        description: "Войдите в аккаунт, чтобы добавлять игры в избранное",
+        variant: "destructive"
+      });
+      return;
+    }
     setFavorites(prev => 
       prev.includes(gameId) 
         ? prev.filter(id => id !== gameId)
         : [...prev, gameId]
     );
+  };
+
+  const handleAuth = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (authMode === 'login') {
+      setUser({
+        username: email.split('@')[0],
+        email: email,
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${email}`
+      });
+      toast({
+        title: "Добро пожаловать! 🎮",
+        description: `Рады видеть тебя, ${email.split('@')[0]}!`
+      });
+    } else {
+      setUser({
+        username: username,
+        email: email,
+        avatar: `https://api.dicebear.com/7.x/avataaars/svg?seed=${username}`
+      });
+      toast({
+        title: "Регистрация успешна! 🎉",
+        description: `Аккаунт ${username} создан!`
+      });
+    }
+    
+    setIsAuthOpen(false);
+    setEmail('');
+    setPassword('');
+    setUsername('');
+  };
+
+  const handleLogout = () => {
+    setUser(null);
+    setFavorites([]);
+    toast({
+      title: "Выход выполнен",
+      description: "До встречи! 👋"
+    });
   };
 
   const filteredGames = games.filter(game => {
@@ -186,22 +252,128 @@ export default function Index() {
           backgroundImage: `linear-gradient(rgba(26, 31, 44, 0.85), rgba(26, 31, 44, 0.95)), url('https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/736f8d57-31cd-47f5-8298-35f438008035.jpg')`
         }}
       >
-        <div className="max-w-7xl mx-auto text-center">
-          <h1 className="text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-fade-in">
-            ПЕСНИС228
-          </h1>
-          <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
-            Твой игровой портал для мобильных игр
-          </p>
-          <div className="relative max-w-2xl mx-auto animate-scale-in">
-            <Input
-              type="text"
-              placeholder="Найди свою игру..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="h-14 pl-14 pr-4 text-lg bg-card/80 backdrop-blur-sm border-border/50 focus:border-primary transition-all"
-            />
-            <Icon name="Search" className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+        <div className="max-w-7xl mx-auto">
+          <div className="flex justify-end mb-4">
+            {user ? (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="ghost" className="flex items-center gap-2 hover:bg-card/50">
+                    <Avatar className="h-8 w-8">
+                      <AvatarImage src={user.avatar} />
+                      <AvatarFallback>{user.username[0].toUpperCase()}</AvatarFallback>
+                    </Avatar>
+                    <span className="hidden sm:inline text-foreground">{user.username}</span>
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="end" className="w-56">
+                  <DropdownMenuLabel>Мой аккаунт</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem className="flex items-center gap-2">
+                    <Icon name="User" size={16} />
+                    Профиль
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center gap-2">
+                    <Icon name="Heart" size={16} />
+                    Избранное ({favorites.length})
+                  </DropdownMenuItem>
+                  <DropdownMenuItem className="flex items-center gap-2">
+                    <Icon name="Settings" size={16} />
+                    Настройки
+                  </DropdownMenuItem>
+                  <DropdownMenuSeparator />
+                  <DropdownMenuItem onClick={handleLogout} className="flex items-center gap-2 text-destructive">
+                    <Icon name="LogOut" size={16} />
+                    Выйти
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
+            ) : (
+              <Dialog open={isAuthOpen} onOpenChange={setIsAuthOpen}>
+                <DialogTrigger asChild>
+                  <Button className="bg-primary hover:bg-primary/90">
+                    <Icon name="User" className="mr-2" size={18} />
+                    Войти
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-md">
+                  <DialogHeader>
+                    <DialogTitle className="text-2xl font-bold">
+                      {authMode === 'login' ? 'Вход в аккаунт' : 'Регистрация'}
+                    </DialogTitle>
+                    <DialogDescription>
+                      {authMode === 'login' 
+                        ? 'Войдите, чтобы сохранять избранное и получать персональные рекомендации'
+                        : 'Создайте аккаунт, чтобы начать пользоваться всеми возможностями'}
+                    </DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleAuth} className="space-y-4">
+                    {authMode === 'register' && (
+                      <div className="space-y-2">
+                        <Label htmlFor="username">Имя пользователя</Label>
+                        <Input
+                          id="username"
+                          placeholder="gamer228"
+                          value={username}
+                          onChange={(e) => setUsername(e.target.value)}
+                          required
+                        />
+                      </div>
+                    )}
+                    <div className="space-y-2">
+                      <Label htmlFor="email">Email</Label>
+                      <Input
+                        id="email"
+                        type="email"
+                        placeholder="player@example.com"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <div className="space-y-2">
+                      <Label htmlFor="password">Пароль</Label>
+                      <Input
+                        id="password"
+                        type="password"
+                        placeholder="••••••••"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                      />
+                    </div>
+                    <Button type="submit" className="w-full bg-primary hover:bg-primary/90">
+                      {authMode === 'login' ? 'Войти' : 'Зарегистрироваться'}
+                    </Button>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      className="w-full"
+                      onClick={() => setAuthMode(authMode === 'login' ? 'register' : 'login')}
+                    >
+                      {authMode === 'login' ? 'Нет аккаунта? Зарегистрируйтесь' : 'Уже есть аккаунт? Войдите'}
+                    </Button>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            )}
+          </div>
+          <div className="text-center">
+            <h1 className="text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-fade-in">
+              ПЕСНИС228
+            </h1>
+            <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
+              Твой игровой портал для мобильных игр
+            </p>
+            <div className="relative max-w-2xl mx-auto animate-scale-in">
+              <Input
+                type="text"
+                placeholder="Найди свою игру..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="h-14 pl-14 pr-4 text-lg bg-card/80 backdrop-blur-sm border-border/50 focus:border-primary transition-all"
+              />
+              <Icon name="Search" className="absolute left-5 top-1/2 -translate-y-1/2 text-muted-foreground" size={20} />
+            </div>
           </div>
         </div>
       </div>
