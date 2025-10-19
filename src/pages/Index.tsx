@@ -87,6 +87,15 @@ export default function Index() {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Все");
   const [activeTab, setActiveTab] = useState("home");
+  const [favorites, setFavorites] = useState<number[]>([]);
+
+  const toggleFavorite = (gameId: number) => {
+    setFavorites(prev => 
+      prev.includes(gameId) 
+        ? prev.filter(id => id !== gameId)
+        : [...prev, gameId]
+    );
+  };
 
   const filteredGames = games.filter(game => {
     const matchesSearch = game.title.toLowerCase().includes(searchQuery.toLowerCase());
@@ -97,8 +106,12 @@ export default function Index() {
   const topGames = [...games].sort((a, b) => b.rating - a.rating).slice(0, 5);
   const newGames = games.filter(g => g.isNew);
   const trendingGames = games.filter(g => g.isTrending);
+  const favoriteGames = games.filter(g => favorites.includes(g.id));
 
-  const GameCard = ({ game }: { game: Game }) => (
+  const GameCard = ({ game }: { game: Game }) => {
+    const isFavorite = favorites.includes(game.id);
+    
+    return (
     <Card className="group overflow-hidden bg-card/50 backdrop-blur-sm border-border/50 hover:border-primary transition-all duration-300 hover:shadow-lg hover:shadow-primary/20 hover:scale-105 animate-fade-in">
       <CardContent className="p-0">
         <div className="relative overflow-hidden">
@@ -107,6 +120,24 @@ export default function Index() {
             alt={game.title}
             className="w-full h-48 object-cover transition-transform duration-500 group-hover:scale-110"
           />
+          <div className="absolute top-2 left-2 z-10">
+            <Button
+              size="icon"
+              variant="secondary"
+              className={`rounded-full transition-all duration-300 ${
+                isFavorite 
+                  ? 'bg-secondary hover:bg-secondary/80 animate-pulse-glow' 
+                  : 'bg-background/70 hover:bg-background/90'
+              }`}
+              onClick={() => toggleFavorite(game.id)}
+            >
+              <Icon 
+                name="Heart" 
+                size={20} 
+                className={isFavorite ? 'fill-secondary text-secondary' : 'text-foreground'}
+              />
+            </Button>
+          </div>
           <div className="absolute top-2 right-2 flex gap-2">
             {game.isNew && (
               <Badge className="bg-secondary text-secondary-foreground font-bold">NEW</Badge>
@@ -144,7 +175,8 @@ export default function Index() {
         </div>
       </CardContent>
     </Card>
-  );
+    );
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -176,7 +208,7 @@ export default function Index() {
 
       <div className="max-w-7xl mx-auto px-4 py-8">
         <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-          <TabsList className="grid w-full grid-cols-5 mb-8 bg-card/50 backdrop-blur-sm p-1 h-auto">
+          <TabsList className="grid w-full grid-cols-6 mb-8 bg-card/50 backdrop-blur-sm p-1 h-auto">
             <TabsTrigger value="home" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3">
               <Icon name="Home" size={18} />
               <span className="hidden sm:inline">Главная</span>
@@ -196,6 +228,15 @@ export default function Index() {
             <TabsTrigger value="trending" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3">
               <Icon name="TrendingUp" size={18} />
               <span className="hidden sm:inline">Тренды</span>
+            </TabsTrigger>
+            <TabsTrigger value="favorites" className="flex items-center gap-2 data-[state=active]:bg-primary data-[state=active]:text-primary-foreground py-3 relative">
+              <Icon name="Heart" size={18} />
+              <span className="hidden sm:inline">Избранное</span>
+              {favorites.length > 0 && (
+                <Badge className="absolute -top-1 -right-1 h-5 w-5 p-0 flex items-center justify-center bg-secondary text-xs">
+                  {favorites.length}
+                </Badge>
+              )}
             </TabsTrigger>
           </TabsList>
 
@@ -284,6 +325,24 @@ export default function Index() {
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {trendingGames.map(game => <GameCard key={game.id} game={game} />)}
             </div>
+          </TabsContent>
+
+          <TabsContent value="favorites">
+            <h2 className="text-3xl font-bold mb-6 flex items-center gap-3">
+              <Icon name="Heart" className="text-secondary fill-secondary" />
+              Мои избранные ({favorites.length})
+            </h2>
+            {favoriteGames.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {favoriteGames.map(game => <GameCard key={game.id} game={game} />)}
+              </div>
+            ) : (
+              <div className="text-center py-20">
+                <Icon name="Heart" size={64} className="mx-auto text-muted-foreground mb-4" />
+                <h3 className="text-2xl font-bold mb-2 text-muted-foreground">Нет избранных игр</h3>
+                <p className="text-muted-foreground">Добавь игры в избранное, нажав на ❤️</p>
+              </div>
+            )}
           </TabsContent>
         </Tabs>
       </div>
