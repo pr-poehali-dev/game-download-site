@@ -73,11 +73,22 @@ export default function Index() {
   const [username, setUsername] = useState('');
   const [isVerificationOpen, setIsVerificationOpen] = useState(false);
   const [selectedGame, setSelectedGame] = useState<Game | null>(null);
+  const [downloadCounts, setDownloadCounts] = useState<Record<number, number>>({});
   const { toast } = useToast();
 
   const handleDownload = (game: Game) => {
     setSelectedGame(game);
     setIsVerificationOpen(true);
+    
+    setDownloadCounts(prev => ({
+      ...prev,
+      [game.id]: (prev[game.id] || 0) + 1
+    }));
+    
+    toast({
+      title: "Скачивание началось! 🚀",
+      description: `${game.title} добавлена в очередь скачивания`
+    });
   };
 
   const toggleFavorite = (gameId: number) => {
@@ -214,6 +225,16 @@ export default function Index() {
               {game.size}
             </span>
           </div>
+          {downloadCounts[game.id] && (
+            <div className="mt-3 pt-3 border-t border-border/50">
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-muted-foreground">Скачиваний с сайта:</span>
+                <Badge variant="secondary" className="text-xs font-bold">
+                  {downloadCounts[game.id]}
+                </Badge>
+              </div>
+            </div>
+          )}
         </div>
       </CardContent>
     </Card>
