@@ -24,69 +24,35 @@ interface Game {
 }
 
 const games: Game[] = [
-  {
-    id: 1,
-    title: "Cyber Legends",
-    category: "Экшен",
-    rating: 4.8,
-    downloads: "10M+",
-    size: "250 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg",
-    isNew: true,
-    isTrending: true
-  },
-  {
-    id: 2,
-    title: "Racing Neon",
-    category: "Гонки",
-    rating: 4.6,
-    downloads: "8M+",
-    size: "180 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg",
-    isTrending: true
-  },
-  {
-    id: 3,
-    title: "Puzzle Galaxy",
-    category: "Головоломки",
-    rating: 4.9,
-    downloads: "15M+",
-    size: "120 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg",
-    isNew: true
-  },
-  {
-    id: 4,
-    title: "Battle Arena",
-    category: "Стратегия",
-    rating: 4.7,
-    downloads: "12M+",
-    size: "300 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg",
-    isTrending: true
-  },
-  {
-    id: 5,
-    title: "Space Shooter",
-    category: "Аркада",
-    rating: 4.5,
-    downloads: "6M+",
-    size: "150 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg",
-    isNew: true
-  },
-  {
-    id: 6,
-    title: "Fantasy Quest",
-    category: "RPG",
-    rating: 4.8,
-    downloads: "20M+",
-    size: "400 МБ",
-    image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg"
-  }
+  { id: 1, title: "Cyber Legends", category: "Экшен", rating: 4.8, downloads: "10M+", size: "250 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isNew: true, isTrending: true },
+  { id: 2, title: "Racing Neon", category: "Гонки", rating: 4.6, downloads: "8M+", size: "180 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isTrending: true },
+  { id: 3, title: "Puzzle Galaxy", category: "Головоломки", rating: 4.9, downloads: "15M+", size: "120 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isNew: true },
+  { id: 4, title: "Battle Arena", category: "Стратегия", rating: 4.7, downloads: "12M+", size: "300 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isTrending: true },
+  { id: 5, title: "Space Shooter", category: "Аркада", rating: 4.5, downloads: "6M+", size: "150 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isNew: true },
+  { id: 6, title: "Fantasy Quest", category: "RPG", rating: 4.8, downloads: "20M+", size: "400 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg" },
+  { id: 7, title: "Shadow Warriors", category: "Экшен", rating: 4.7, downloads: "18M+", size: "320 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isTrending: true },
+  { id: 8, title: "Drift Kings", category: "Гонки", rating: 4.4, downloads: "7M+", size: "220 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isNew: true },
+  { id: 9, title: "Mind Maze", category: "Головоломки", rating: 4.6, downloads: "12M+", size: "95 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg" },
+  { id: 10, title: "Empire Defense", category: "Стратегия", rating: 4.8, downloads: "25M+", size: "380 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isTrending: true },
+  { id: 11, title: "Retro Blaster", category: "Аркада", rating: 4.3, downloads: "5M+", size: "110 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg" },
+  { id: 12, title: "Dragon Saga", category: "RPG", rating: 4.9, downloads: "30M+", size: "450 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isNew: true, isTrending: true },
+  { id: 13, title: "Zombie Strike", category: "Экшен", rating: 4.5, downloads: "14M+", size: "280 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg" },
+  { id: 14, title: "Turbo Rush", category: "Гонки", rating: 4.7, downloads: "11M+", size: "200 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isTrending: true },
+  { id: 15, title: "Logic Master", category: "Головоломки", rating: 4.8, downloads: "20M+", size: "85 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isNew: true },
+  { id: 16, title: "War Commander", category: "Стратегия", rating: 4.6, downloads: "16M+", size: "340 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg" },
+  { id: 17, title: "Pixel Fighters", category: "Аркада", rating: 4.4, downloads: "9M+", size: "130 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg" },
+  { id: 18, title: "Mystic Realms", category: "RPG", rating: 4.7, downloads: "22M+", size: "410 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isTrending: true },
+  { id: 19, title: "Gun Master 3D", category: "Экшен", rating: 4.6, downloads: "13M+", size: "270 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isNew: true },
+  { id: 20, title: "Street Racer X", category: "Гонки", rating: 4.5, downloads: "10M+", size: "195 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg" },
+  { id: 21, title: "Brain Teaser Pro", category: "Головоломки", rating: 4.9, downloads: "18M+", size: "100 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg", isTrending: true },
+  { id: 22, title: "Castle Siege", category: "Стратегия", rating: 4.7, downloads: "19M+", size: "360 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg", isNew: true },
+  { id: 23, title: "Neon Pinball", category: "Аркада", rating: 4.2, downloads: "4M+", size: "120 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/d1937173-f826-46bc-be1a-eb4001dd47c9.jpg" },
+  { id: 24, title: "Kingdom Hearts", category: "RPG", rating: 4.8, downloads: "28M+", size: "480 МБ", image: "https://cdn.poehali.dev/projects/3dd1fe5a-10d0-433d-82eb-7e1a4d3e06ef/files/1d843a70-8a15-4bd7-845e-9535480559a8.jpg" }
 ];
 
 const categories = ["Все", "Экшен", "Гонки", "Головоломки", "Стратегия", "Аркада", "RPG"];
+
+const TELEGRAM_BOT_URL = "https://t.me/worldgemisbot";
 
 interface User {
   username: string;
@@ -105,7 +71,14 @@ export default function Index() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [username, setUsername] = useState('');
+  const [isVerificationOpen, setIsVerificationOpen] = useState(false);
+  const [selectedGame, setSelectedGame] = useState<Game | null>(null);
   const { toast } = useToast();
+
+  const handleDownload = (game: Game) => {
+    setSelectedGame(game);
+    setIsVerificationOpen(true);
+  };
 
   const toggleFavorite = (gameId: number) => {
     if (!user) {
@@ -213,7 +186,10 @@ export default function Index() {
             )}
           </div>
           <div className="absolute inset-0 bg-gradient-to-t from-background/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-4">
-            <Button className="bg-primary hover:bg-primary/90 animate-pulse-glow">
+            <Button 
+              className="bg-primary hover:bg-primary/90 animate-pulse-glow"
+              onClick={() => handleDownload(game)}
+            >
               <Icon name="Download" className="mr-2" size={16} />
               Скачать
             </Button>
@@ -518,6 +494,70 @@ export default function Index() {
           </TabsContent>
         </Tabs>
       </div>
+
+      <Dialog open={isVerificationOpen} onOpenChange={setIsVerificationOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold flex items-center gap-2">
+              <Icon name="ShieldCheck" className="text-primary" />
+              Проверка на бота
+            </DialogTitle>
+            <DialogDescription>
+              Для защиты от автоматических скачиваний необходимо пройти проверку
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            {selectedGame && (
+              <Card className="bg-card/50">
+                <CardContent className="p-4">
+                  <div className="flex items-center gap-4">
+                    <img 
+                      src={selectedGame.image} 
+                      alt={selectedGame.title}
+                      className="w-20 h-20 object-cover rounded-lg"
+                    />
+                    <div>
+                      <h3 className="font-bold text-lg">{selectedGame.title}</h3>
+                      <p className="text-sm text-muted-foreground">{selectedGame.category} • {selectedGame.size}</p>
+                      <div className="flex items-center gap-1 mt-1">
+                        <Icon name="Star" size={14} className="fill-secondary text-secondary" />
+                        <span className="text-sm font-semibold">{selectedGame.rating}</span>
+                      </div>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+            )}
+            
+            <div className="bg-muted/50 p-4 rounded-lg border border-border">
+              <div className="flex items-start gap-3">
+                <Icon name="Info" className="text-primary mt-1" size={20} />
+                <div className="space-y-2">
+                  <p className="text-sm font-semibold">Как пройти проверку:</p>
+                  <ol className="text-sm text-muted-foreground space-y-1 list-decimal list-inside">
+                    <li>Нажмите кнопку "Пройти проверку"</li>
+                    <li>Откроется Telegram бот</li>
+                    <li>Нажмите "/start" в боте</li>
+                    <li>Получите ссылку на скачивание</li>
+                  </ol>
+                </div>
+              </div>
+            </div>
+
+            <Button 
+              className="w-full bg-primary hover:bg-primary/90 h-12"
+              onClick={() => window.open(TELEGRAM_BOT_URL, '_blank')}
+            >
+              <Icon name="Send" className="mr-2" />
+              Пройти проверку в Telegram
+            </Button>
+            
+            <p className="text-xs text-center text-muted-foreground">
+              Проверка занимает менее 30 секунд 🚀
+            </p>
+          </div>
+        </DialogContent>
+      </Dialog>
 
       <footer className="bg-card/30 backdrop-blur-sm border-t border-border/50 mt-20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
