@@ -356,7 +356,7 @@ export default function Index() {
           </div>
           <div className="text-center">
             <h1 className="text-5xl md:text-7xl font-black mb-4 bg-gradient-to-r from-primary via-secondary to-accent bg-clip-text text-transparent animate-fade-in">
-              ПЕСНИС228
+              WorldGemis
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground mb-8 animate-fade-in">
               Твой игровой портал для мобильных игр
@@ -583,7 +583,7 @@ export default function Index() {
       <footer className="bg-card/30 backdrop-blur-sm border-t border-border/50 mt-20 py-8">
         <div className="max-w-7xl mx-auto px-4 text-center">
           <h3 className="text-2xl font-bold mb-2 bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
-            ПЕСНИС228
+            WorldGemis
           </h3>
           <p className="text-muted-foreground">Все права защищены © 2025</p>
         </div>
